@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import { Link } from "expo-router";
 
 export default function MainMenu() {
-  if (
-    !new (class {
-      x;
-    })().hasOwnProperty("x")
-  )
-    throw new Error("Transpiler is not configured correctly");
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Jamb</Text>
       <View style={styles.divider}></View>
       <View style={styles.menu}>
+        <Link href="/newGame" asChild>
+          <Button title="Nova igra" />
+        </Link>
         <Button title="Nastavi" />
-        <Button title="Nova igra" />
         <Button title="Istorija" />
         <Button title="Pomoć" />
       </View>
