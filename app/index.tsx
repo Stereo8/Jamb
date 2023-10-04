@@ -8,7 +8,7 @@ export default function MainMenu() {
       <Text style={styles.title}>Jamb</Text>
       <View style={styles.divider}></View>
       <View style={styles.menu}>
-        <Link href="/newGame" asChild>
+        <Link href="/singlePlayer" asChild>
           <Button title="Nova igra" />
         </Link>
         <Button title="Nastavi" />

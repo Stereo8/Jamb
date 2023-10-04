@@ -1,6 +1,8 @@
+import { action, computed, makeObservable, observable } from "mobx";
+import { COLUMN_ORDER } from "../utils/constants";
+
 export interface IColumn {
-  getPlayableFields: () => string[];
-  isPlayable: (field: string) => boolean;
+  get playableFields(): string[];
 
   columnData: {
     1: number | null;
@@ -17,11 +19,11 @@ export interface IColumn {
     poker: number | null;
     yamb: number | null;
   };
-  UP_ORDER: string[] | undefined;
-  DOWN_ORDER: string[] | undefined;
+  UP_ORDER?: string[];
+  DOWN_ORDER?: string[];
 }
 
-class DownColumn implements IColumn {
+export class DownColumn implements IColumn {
   columnData: {
     1: number | null;
     2: number | null;
@@ -54,23 +56,33 @@ class DownColumn implements IColumn {
   ];
 
   constructor() {
-    for (const field of Object.keys(this.columnData)) {
+    makeObservable(this, {
+      columnData: observable,
+      playableFields: computed,
+      setField: action,
+    });
+
+    // @ts-ignore
+    this.columnData = {};
+
+    COLUMN_ORDER.forEach((field) => {
       this.columnData[field] = null;
-    }
+    });
   }
 
-  getPlayableFields: () => string[] = () => {
+  get playableFields(): string[] {
     for (const field of this.DOWN_ORDER) {
       if (this.columnData[field] === null) return [field];
     }
     return [];
-  };
-  isPlayable = (field: string) => {
-    return field in this.getPlayableFields();
-  };
+  }
+  setField(field: string, value: number) {
+    // TODO: Do row checks
+    this.columnData[field] = value;
+  }
 }
 
-class UpColumn implements IColumn {
+export class UpColumn implements IColumn {
   columnData: {
     1: number | null;
     2: number | null;
@@ -103,18 +115,27 @@ class UpColumn implements IColumn {
   ];
 
   constructor() {
-    for (const field of Object.keys(this.columnData)) {
+    makeObservable(this, {
+      columnData: observable,
+      playableFields: computed,
+      setField: action,
+    });
+
+    // @ts-ignore
+    this.columnData = {};
+    COLUMN_ORDER.forEach((field) => {
       this.columnData[field] = null;
-    }
+    });
   }
 
-  getPlayableFields: () => string[] = () => {
+  get playableFields(): string[] {
     for (const field of this.UP_ORDER) {
       if (this.columnData[field] === null) return [field];
     }
     return [];
-  };
-  isPlayable = (field: string) => {
-    return field in this.getPlayableFields();
-  };
+  }
+  setField(field: string, value: number) {
+    // TODO: Do row checks
+    this.columnData[field] = value;
+  }
 }
