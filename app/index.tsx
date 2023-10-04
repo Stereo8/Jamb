@@ -2,6 +2,12 @@ import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 export default function MainMenu() {
+  if (
+    !new (class {
+      x;
+    })().hasOwnProperty("x")
+  )
+    throw new Error("Transpiler is not configured correctly");
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Jamb</Text>
