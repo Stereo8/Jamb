@@ -4,7 +4,7 @@ import { ColumnData } from "../types/columnData";
 
 export interface IColumn {
   get playableFields(): string[];
-
+  setField(field: string, value: number): void;
   columnData: ColumnData;
   UP_ORDER?: string[];
   DOWN_ORDER?: string[];

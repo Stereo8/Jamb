@@ -2,6 +2,7 @@ import { JambSheet } from "../stores/jambSheet";
 import { observer, inject } from "mobx-react";
 import { Key, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { Column } from "./column";
 
 type Props = { jambSheet: JambSheet };
 
@@ -12,36 +13,10 @@ function getRandomInt(min, max) {
 }
 
 export const JambSheetDisplay = observer((props: Props) => {
-  const upCol = Object.entries(props.jambSheet.upColumn.columnData).map(
-    // @ts-ignore
-    ([field, value]) => (
-      <Text
-        key={field}
-        style={styles.text}
-        onPress={() => {
-          props.jambSheet.upColumn.setField(field, getRandomInt(1, 100));
-          console.log(field);
-        }}
-      >
-        {`${field}: ${value ?? ""}`}
-      </Text>
-    )
-  );
-  const downCol = Object.entries(props.jambSheet.downColumn.columnData).map(
-    // @ts-ignore
-    ([field, value]) => (
-      <Text key={field} style={styles.text}>
-        {`${field}: ${value ?? ""}`}
-      </Text>
-    )
-  );
-
-  console.log(props.jambSheet.upColumn.columnData);
-
   return (
     <View style={styles.container}>
-      <View style={styles.column}>{upCol}</View>
-      <View style={styles.column}>{downCol}</View>
+      <Column column={props.jambSheet.downColumn}></Column>
+      <Column column={props.jambSheet.upColumn}></Column>
     </View>
   );
 });
@@ -52,19 +27,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-  },
-  column: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  text: {
-    color: "#000",
-    fontSize: 24,
-    padding: 8,
-    borderColor: "#000",
-    borderWidth: 2,
-    borderStyle: "solid",
-    width: 130,
   },
 });
