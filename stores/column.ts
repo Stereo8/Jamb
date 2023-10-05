@@ -1,44 +1,17 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import { COLUMN_ORDER } from "../utils/constants";
+import { ColumnData } from "../types/columnData";
 
 export interface IColumn {
   get playableFields(): string[];
 
-  columnData: {
-    1: number | null;
-    2: number | null;
-    3: number | null;
-    4: number | null;
-    5: number | null;
-    6: number | null;
-    max: number | null;
-    min: number | null;
-    kenta: number | null;
-    triling: number | null;
-    ful: number | null;
-    poker: number | null;
-    yamb: number | null;
-  };
+  columnData: ColumnData;
   UP_ORDER?: string[];
   DOWN_ORDER?: string[];
 }
 
 export class DownColumn implements IColumn {
-  columnData: {
-    1: number | null;
-    2: number | null;
-    3: number | null;
-    4: number | null;
-    5: number | null;
-    6: number | null;
-    max: number | null;
-    min: number | null;
-    kenta: number | null;
-    triling: number | null;
-    ful: number | null;
-    poker: number | null;
-    yamb: number | null;
-  };
+  columnData: ColumnData;
   readonly DOWN_ORDER: string[] = [
     "1",
     "2",
@@ -83,21 +56,7 @@ export class DownColumn implements IColumn {
 }
 
 export class UpColumn implements IColumn {
-  columnData: {
-    1: number | null;
-    2: number | null;
-    3: number | null;
-    4: number | null;
-    5: number | null;
-    6: number | null;
-    max: number | null;
-    min: number | null;
-    kenta: number | null;
-    triling: number | null;
-    ful: number | null;
-    poker: number | null;
-    yamb: number | null;
-  };
+  columnData: ColumnData;
   readonly UP_ORDER: string[] = [
     "yamb",
     "poker",
