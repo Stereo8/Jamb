@@ -1,35 +1,34 @@
 import { IColumn } from "../stores/column";
 import { ColumnData } from "../types/columnData";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 import { observer } from "mobx-react";
 
-type Props = { column: IColumn };
+type Props = { column: IColumn; fieldEdited: (string) => void };
 
 export const Column = observer((props: Props) => {
   const openFieldEntryModal = (field: string) => {
-    props.column.setField(field, 38);
+    props.fieldEdited(field);
   };
 
   const columnFields = Object.entries(props.column.columnData).map(
     ([field, value]) => {
       return (
-        <View
-          key={field}
-          style={{
-            ...styles.cell,
-            ...(props.column.playableFields.includes(field) &&
-              styles.highlighted),
+        <Pressable
+          onPress={() => {
+            openFieldEntryModal(field);
           }}
         >
-          <Text
-            style={styles.text}
-            onPress={() => {
-              openFieldEntryModal(field);
+          <View
+            key={field}
+            style={{
+              ...styles.cell,
+              ...(props.column.playableFields.includes(field) &&
+                styles.highlighted),
             }}
           >
-            {`${value ?? ""}`}
-          </Text>
-        </View>
+            <Text style={styles.text}>{`${value ?? ""}`}</Text>
+          </View>
+        </Pressable>
       );
     }
   );

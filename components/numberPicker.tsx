@@ -1,7 +1,34 @@
 import { View, Text, StyleSheet } from "react-native";
+import Carousel from "react-native-reanimated-carousel";
 
-export const NumberPicker = (field: string) => {
-  const numbersToDisplay = calculateNumbers(field);
+type Props = { field: string };
+
+export const NumberPicker = (props: Props) => {
+  const numbersToDisplay = calculateNumbers(props.field);
+
+  return (
+    <View style={styles.carousel}>
+      <Carousel
+        data={numbersToDisplay}
+        vertical
+        height={150}
+        width={75}
+        mode={"parallax"}
+        snapEnabled={true}
+        modeConfig={{
+          parallaxAdjacentItemScale: 0.45,
+          parallaxScrollingScale: 1.0,
+          parallaxScrollingOffset: 95,
+        }}
+        scrollAnimationDuration={2}
+        renderItem={(info) => (
+          <View style={styles.cell}>
+            <Text style={styles.text}>{info.item}</Text>
+          </View>
+        )}
+      ></Carousel>
+    </View>
+  );
 };
 
 function range(start: number, end: number) {
@@ -9,9 +36,8 @@ function range(start: number, end: number) {
 }
 
 const calculateNumbers = (field: string) => {
-  const numberOfDice = [1, 2, 3, 4, 5, 6];
   if (["1", "2", "3", "4", "5", "6"].includes(field)) {
-    return numberOfDice.map((d) => d * Number(field));
+    return range(1, 5).map((d) => d * Number(field));
   } else {
     const numbers: number[] = [];
     switch (field) {
@@ -46,21 +72,34 @@ const calculateNumbers = (field: string) => {
         );
         break;
       case "poker":
-        numbers.push(
-          ...range(1, 6)
-            .map((d) => d * 4 + 40)
-            .reverse(),
-          0
-        );
+        numbers.push(...range(1, 6).map((d) => d * 4 + 40), 0);
         break;
       case "yamb":
-        numbers.push(
-          ...range(1, 6)
-            .map((d) => d * 5 + 50)
-            .reverse(),
-          0
-        );
+        numbers.push(...range(1, 6).map((d) => d * 5 + 50), 0);
     }
     return numbers;
   }
 };
+
+const styles = StyleSheet.create({
+  carousel: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    margin: 10,
+  },
+  arrows: {
+    fontSize: 48,
+  },
+  text: {
+    fontSize: 64,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  cell: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
