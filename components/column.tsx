@@ -11,7 +11,6 @@ export const Column = observer((props: Props) => {
   };
 
   const columnFields = Object.entries(props.column.columnData).map(
-    // @ts-ignore
     ([field, value]) => {
       return (
         <View
