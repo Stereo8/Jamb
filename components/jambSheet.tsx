@@ -7,12 +7,6 @@ import { RowLabels } from "./rowLabels";
 
 type Props = { jambSheet: JambSheet };
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-}
-
 export const JambSheetDisplay = observer((props: Props) => {
   return (
     <View style={styles.container}>
