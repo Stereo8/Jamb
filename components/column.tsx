@@ -1,27 +1,34 @@
 import { IColumn } from "../stores/column";
-import { ColumnData } from "../types/columnData";
+import { ColumnData, Row } from "../types/columnData";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { observer } from "mobx-react";
+import { UIState } from "../stores/uiState";
 
-type Props = { column: IColumn; fieldEdited: (string) => void };
+type Props = {
+  column: IColumn;
+  fieldSelected: (field: Row) => void;
+  uiState: UIState;
+};
 
 export const Column = observer((props: Props) => {
-  const openFieldEntryModal = (field: string) => {
-    props.fieldEdited(field);
+  const openFieldEntryModal = (field: Row) => {
+    props.fieldSelected(field);
   };
 
   const columnFields = Object.entries(props.column.columnData).map(
     ([field, value]) => {
       return (
         <Pressable
+          key={field}
           onPress={() => {
-            openFieldEntryModal(field);
+            openFieldEntryModal(field as Row);
           }}
         >
           <View
-            key={field}
             style={{
               ...styles.cell,
+              ...(props.column.playableFields.includes(field) &&
+                styles.playable),
               ...(props.column.playableFields.includes(field) &&
                 styles.highlighted),
             }}
@@ -62,7 +69,8 @@ const styles = StyleSheet.create({
     minWidth: 40,
     minHeight: 40,
   },
-  highlighted: {
+  playable: {
     backgroundColor: "#bbedbf",
   },
+  highlighted: {},
 });

@@ -1,15 +1,12 @@
-import { DownColumn, UpColumn } from "./column";
-import { makeObservable, observable } from "mobx";
+import { Row } from "../types/columnData";
+import { Columns } from "../types/columns";
+import { DownColumn, IColumn, UpColumn } from "./column";
+import { makeAutoObservable, makeObservable, observable } from "mobx";
 export class JambSheet {
-  upColumn: UpColumn;
-  downColumn: DownColumn;
+  columns: Columns;
 
   constructor() {
-    makeObservable(this, {
-      upColumn: observable,
-      downColumn: observable,
-    });
-    this.upColumn = new UpColumn();
-    this.downColumn = new DownColumn();
+    makeAutoObservable(this);
+    this.columns = { up: new UpColumn(), down: new DownColumn() };
   }
 }

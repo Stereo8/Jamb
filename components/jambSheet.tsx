@@ -5,23 +5,36 @@ import { Text, View, StyleSheet } from "react-native";
 import { Column } from "./column";
 import { RowLabels } from "./rowLabels";
 import { NumberPicker } from "./numberPicker";
+import { UIState } from "../stores/uiState";
+import { ColumnType } from "../types/columns";
+import { Row } from "../types/columnData";
 
-type Props = { jambSheet: JambSheet };
+type Props = { jambSheet: JambSheet; uiState: UIState };
 
 export const JambSheetDisplay = observer((props: Props) => {
-  const [fieldBeingEdited, setFieldBeingEdited] = useState("1");
+  const setFieldBeingEdited = (row: Row, column: ColumnType) => {
+    props.uiState.setSelectedField(row, column);
+  };
+
   return (
     <View style={styles.container}>
       <RowLabels></RowLabels>
       <Column
-        column={props.jambSheet.downColumn}
-        fieldEdited={(field: string) => setFieldBeingEdited(field)}
+        column={props.jambSheet.columns["down"]}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "down")}
+        uiState={props.uiState}
       ></Column>
       <Column
-        column={props.jambSheet.upColumn}
-        fieldEdited={(field: string) => setFieldBeingEdited(field)}
+        column={props.jambSheet.columns["up"]}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "up")}
+        uiState={props.uiState}
       ></Column>
-      <NumberPicker field={fieldBeingEdited}></NumberPicker>
+
+      <NumberPicker
+        field={props.uiState.selectedRow}
+        uiState={props.uiState}
+      ></NumberPicker>
+      <Text style={styles.text}>{props.uiState.numberSelectedInPicker}</Text>
     </View>
   );
 });
@@ -33,4 +46,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  text: { fontSize: 36 },
 });

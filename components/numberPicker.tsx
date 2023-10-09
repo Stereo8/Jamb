@@ -1,9 +1,14 @@
+import { observer } from "mobx-react";
 import { View, Text, StyleSheet } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { UIState } from "../stores/uiState";
+import { JambSheet } from "../stores/jambSheet";
+import { action } from "mobx";
+import { Row } from "../types/columnData";
 
-type Props = { field: string };
+type Props = { field: Row; uiState: UIState };
 
-export const NumberPicker = (props: Props) => {
+export const NumberPicker = observer((props: Props) => {
   const numbersToDisplay = calculateNumbers(props.field);
 
   return (
@@ -21,21 +26,25 @@ export const NumberPicker = (props: Props) => {
           parallaxScrollingOffset: 95,
         }}
         scrollAnimationDuration={2}
+        onSnapToItem={(index) => {
+          props.uiState.setNumberSelectedInPicker(numbersToDisplay[index]);
+        }}
         renderItem={(info) => (
           <View style={styles.cell}>
             <Text style={styles.text}>{info.item}</Text>
           </View>
         )}
       ></Carousel>
+      <Text onPress={action(() => props.uiState.setField())}>Set</Text>
     </View>
   );
-};
+});
 
 function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => i + start);
 }
 
-const calculateNumbers = (field: string) => {
+const calculateNumbers = (field: Row) => {
   if (["1", "2", "3", "4", "5", "6"].includes(field)) {
     return range(1, 5).map((d) => d * Number(field));
   } else {
