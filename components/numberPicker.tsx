@@ -6,13 +6,21 @@ import { JambSheet } from "../stores/jambSheet";
 import { action } from "mobx";
 import { Row } from "../types/columnData";
 import * as Haptics from "expo-haptics";
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = { uiState: UIState };
 
 export const NumberPicker = observer((props: Props) => {
   const numbersToDisplay = calculateNumbers(props.uiState.selectedRow);
+
   const carousel = React.createRef<ICarouselInstance>();
+
+  useEffect(() => {
+    props.uiState.setNumberSelectedInPicker(
+      numbersToDisplay[carousel.current!.getCurrentIndex()]
+    );
+  }, [props.uiState.numberPickerOpen]);
+
   return (
     <View style={styles.carousel}>
       <Text
