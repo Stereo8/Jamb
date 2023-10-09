@@ -15,6 +15,12 @@ export const NumberPicker = observer((props: Props) => {
   const carousel = React.createRef<ICarouselInstance>();
   return (
     <View style={styles.carousel}>
+      <Text
+        style={styles.close}
+        onPress={() => props.uiState.closeNumberPicker()}
+      >
+        X
+      </Text>
       <Carousel
         ref={carousel}
         data={numbersToDisplay}
@@ -145,5 +151,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingVertical: 5,
     borderRadius: 5,
+  },
+  close: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+    fontSize: 24,
+    fontWeight: "bold",
+    padding: 5,
   },
 });

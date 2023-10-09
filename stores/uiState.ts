@@ -25,6 +25,10 @@ export class UIState {
     this.numberPickerOpen = false;
   }
 
+  closeNumberPicker() {
+    this.numberPickerOpen = false;
+  }
+
   setNumberSelectedInPicker(i: number) {
     this.numberSelectedInPicker = i;
   }
