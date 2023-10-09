@@ -20,8 +20,6 @@ export const Column = observer((props: Props) => {
     }
   };
 
-  console.log(props.column.columnData);
-
   const digits = Object.entries(props.column.columnData)
     .slice(0, 6)
     .map(([field, value]) => {
