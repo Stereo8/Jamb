@@ -20,15 +20,61 @@ export const JambSheetDisplay = observer((props: Props) => {
     <View style={styles.container}>
       <RowLabels></RowLabels>
       <Column
-        column={props.jambSheet.columns["down"]}
+        column={props.jambSheet.columns.down}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "down")}
         uiState={props.uiState}
+        columnIcon="down"
       ></Column>
       <Column
-        column={props.jambSheet.columns["up"]}
+        column={props.jambSheet.columns.free}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "free")}
+        uiState={props.uiState}
+        columnIcon="free"
+      ></Column>
+      <Column
+        column={props.jambSheet.columns.up}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "up")}
         uiState={props.uiState}
+        columnIcon="up"
       ></Column>
+      <Column
+        column={props.jambSheet.columns.announce}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "announce")}
+        uiState={props.uiState}
+        columnIcon="announce"
+      ></Column>
+      <Column
+        column={props.jambSheet.columns.hand}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "hand")}
+        uiState={props.uiState}
+        columnIcon="hand"
+      ></Column>
+      <Column
+        column={props.jambSheet.columns.call}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "call")}
+        uiState={props.uiState}
+        columnIcon="call"
+      ></Column>
+      <Column
+        column={props.jambSheet.columns.inside}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "inside")}
+        uiState={props.uiState}
+        columnIcon="inside"
+      ></Column>
+      <Column
+        column={props.jambSheet.columns.outside}
+        fieldSelected={(field: Row) => setFieldBeingEdited(field, "outside")}
+        uiState={props.uiState}
+        columnIcon="outside"
+      ></Column>
+      {false && (
+        <Column
+          column={props.jambSheet.columns.final}
+          fieldSelected={(field: Row) => setFieldBeingEdited(field, "final")}
+          uiState={props.uiState}
+          columnIcon="final"
+        ></Column>
+      )}
       <Modal transparent visible={props.uiState.numberPickerOpen}>
         <View style={styles.modal}>
           <NumberPicker uiState={props.uiState}></NumberPicker>

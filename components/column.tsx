@@ -1,13 +1,16 @@
 import { IColumn } from "../stores/column";
-import { ColumnData, Row } from "../types/columnData";
+import { Row } from "../types/columnData";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { observer } from "mobx-react";
 import { UIState } from "../stores/uiState";
+import { ColumnIcon } from "../utils/images";
+import { ColumnLabel } from "./columnLabel";
 
 type Props = {
   column: IColumn;
   fieldSelected: (field: Row) => void;
   uiState: UIState;
+  columnIcon: ColumnIcon;
 };
 
 export const Column = observer((props: Props) => {
@@ -41,7 +44,14 @@ export const Column = observer((props: Props) => {
       );
     }
   );
-  return <View style={styles.column}>{columnFields}</View>;
+  return (
+    <View style={styles.column}>
+      <View style={styles.cell}>
+        <ColumnLabel columnIcon={props.columnIcon}></ColumnLabel>
+      </View>
+      {columnFields}
+    </View>
+  );
 });
 
 const styles = StyleSheet.create({
@@ -49,8 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
   },
   text: {
     color: "#000",
@@ -72,7 +80,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
   },
   playable: {
-    backgroundColor: "#bbedbf",
+    // backgroundColor: "#bbedbf",
   },
   highlighted: {},
 });

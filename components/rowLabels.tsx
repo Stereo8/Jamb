@@ -4,6 +4,9 @@ import { COLUMN_ORDER } from "../utils/constants";
 export const RowLabels = () => {
   return (
     <View style={styles.column}>
+      <View style={styles.cell}>
+        <Text style={styles.text}></Text>
+      </View>
       {COLUMN_ORDER.map((label) => (
         <View key={label} style={styles.cell}>
           <Text style={styles.text}>{label}</Text>

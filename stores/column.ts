@@ -98,3 +98,29 @@ export class UpColumn implements IColumn {
     this.columnData[field] = value;
   }
 }
+
+export class FreeColumn implements IColumn {
+  columnData: ColumnData;
+
+  constructor() {
+    makeObservable(this, {
+      columnData: observable,
+      playableFields: computed,
+      setField: action,
+    });
+
+    // @ts-ignore
+    this.columnData = {};
+    COLUMN_ORDER.forEach((field) => {
+      this.columnData[field] = null;
+    });
+  }
+
+  get playableFields(): string[] {
+    return Object.keys(this.columnData);
+  }
+  setField(field: Row, value: number) {
+    // TODO: Do row checks
+    this.columnData[field] = value;
+  }
+}
