@@ -1,5 +1,24 @@
 import { Text, View, StyleSheet } from "react-native";
-import { COLUMN_ORDER } from "../utils/constants";
+import uuid from "react-uuid";
+
+const labels = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "Σ",
+  "max",
+  "min",
+  "Σ",
+  "kenta",
+  "triling",
+  "ful",
+  "poker",
+  "yamb",
+  "Σ",
+];
 
 export const RowLabels = () => {
   return (
@@ -7,8 +26,8 @@ export const RowLabels = () => {
       <View style={styles.cell}>
         <Text style={styles.text}></Text>
       </View>
-      {COLUMN_ORDER.map((label) => (
-        <View key={label} style={styles.cell}>
+      {labels.map((label) => (
+        <View key={uuid()} style={styles.cell}>
           <Text style={styles.text}>{label}</Text>
         </View>
       ))}
@@ -21,10 +40,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
+    minWidth: 40,
+    maxWidth: 40,
   },
   text: {
     color: "#000",
-    fontSize: 18,
+    fontSize: 14,
   },
   cell: {
     flex: 1,
@@ -33,7 +54,7 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderLeftWidth: 2,
+    borderLeftWidth: 1,
     borderRightWidth: 2,
     borderStyle: "solid",
     maxWidth: 40,

@@ -38,6 +38,9 @@ export interface IColumn {
   get playableFields(): string[];
   setField(field: Row, value: number): void;
   columnData: ColumnData;
+  get digitsSum(): number;
+  get minMax(): number;
+  get lower(): number;
 }
 
 export class DownColumn implements IColumn {
@@ -48,6 +51,9 @@ export class DownColumn implements IColumn {
       columnData: observable,
       playableFields: computed,
       setField: action,
+      digitsSum: computed,
+      minMax: computed,
+      lower: computed,
     });
 
     // @ts-ignore
@@ -68,6 +74,32 @@ export class DownColumn implements IColumn {
     // TODO: Do row checks
     this.columnData[field] = value;
   }
+
+  get digitsSum() {
+    return ["1", "2", "3", "4", "5", "6"].reduce(
+      (acc, d) => acc + this.columnData[d],
+      0
+    );
+  }
+  get lower(): number {
+    return (
+      (this.columnData.kenta ?? 0) +
+      (this.columnData.triling ?? 0) +
+      (this.columnData.ful ?? 0) +
+      (this.columnData.poker ?? 0) +
+      (this.columnData.yamb ?? 0)
+    );
+  }
+  get minMax(): number {
+    if (
+      this.columnData[1] === null ||
+      this.columnData.min === null ||
+      this.columnData.max === null
+    ) {
+      return 0;
+    }
+    return (this.columnData.max - this.columnData.min) * this.columnData[1];
+  }
 }
 
 export class UpColumn implements IColumn {
@@ -78,6 +110,9 @@ export class UpColumn implements IColumn {
       columnData: observable,
       playableFields: computed,
       setField: action,
+      digitsSum: computed,
+      minMax: computed,
+      lower: computed,
     });
 
     // @ts-ignore
@@ -97,6 +132,32 @@ export class UpColumn implements IColumn {
     // TODO: Do row checks
     this.columnData[field] = value;
   }
+
+  get digitsSum() {
+    return ["1", "2", "3", "4", "5", "6"].reduce(
+      (acc, d) => acc + this.columnData[d],
+      0
+    );
+  }
+  get lower(): number {
+    return (
+      (this.columnData.kenta ?? 0) +
+      (this.columnData.triling ?? 0) +
+      (this.columnData.ful ?? 0) +
+      (this.columnData.poker ?? 0) +
+      (this.columnData.yamb ?? 0)
+    );
+  }
+  get minMax(): number {
+    if (
+      this.columnData[1] === null ||
+      this.columnData.min === null ||
+      this.columnData.max === null
+    ) {
+      return 0;
+    }
+    return (this.columnData.max - this.columnData.min) * this.columnData[1];
+  }
 }
 
 export class FreeColumn implements IColumn {
@@ -107,6 +168,9 @@ export class FreeColumn implements IColumn {
       columnData: observable,
       playableFields: computed,
       setField: action,
+      digitsSum: computed,
+      minMax: computed,
+      lower: computed,
     });
 
     // @ts-ignore
@@ -122,5 +186,31 @@ export class FreeColumn implements IColumn {
   setField(field: Row, value: number) {
     // TODO: Do row checks
     this.columnData[field] = value;
+  }
+
+  get digitsSum() {
+    return ["1", "2", "3", "4", "5", "6"].reduce(
+      (acc, d) => acc + this.columnData[d],
+      0
+    );
+  }
+  get lower(): number {
+    return (
+      (this.columnData.kenta ?? 0) +
+      (this.columnData.triling ?? 0) +
+      (this.columnData.ful ?? 0) +
+      (this.columnData.poker ?? 0) +
+      (this.columnData.yamb ?? 0)
+    );
+  }
+  get minMax(): number {
+    if (
+      this.columnData[1] === null ||
+      this.columnData.min === null ||
+      this.columnData.max === null
+    ) {
+      return 0;
+    }
+    return (this.columnData.max - this.columnData.min) * this.columnData[1];
   }
 }

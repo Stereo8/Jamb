@@ -20,8 +20,11 @@ export const Column = observer((props: Props) => {
     }
   };
 
-  const columnFields = Object.entries(props.column.columnData).map(
-    ([field, value]) => {
+  console.log(props.column.columnData);
+
+  const digits = Object.entries(props.column.columnData)
+    .slice(0, 6)
+    .map(([field, value]) => {
       return (
         <Pressable
           key={field}
@@ -36,20 +39,89 @@ export const Column = observer((props: Props) => {
                 styles.playable),
               ...(props.column.playableFields.includes(field) &&
                 styles.highlighted),
+              ...(["6", "min", "yamb"].includes(field) && styles.underlined),
             }}
           >
             <Text style={styles.text}>{`${value ?? ""}`}</Text>
           </View>
         </Pressable>
       );
-    }
-  );
+    });
+
+  const minMax = Object.entries(props.column.columnData)
+    .slice(6, 8)
+    .map(([field, value]) => {
+      return (
+        <Pressable
+          key={field}
+          onPress={() => {
+            openFieldEntryModal(field as Row);
+          }}
+        >
+          <View
+            style={{
+              ...styles.cell,
+              ...(props.column.playableFields.includes(field) &&
+                styles.playable),
+              ...(props.column.playableFields.includes(field) &&
+                styles.highlighted),
+              ...(["6", "min", "yamb"].includes(field) && styles.underlined),
+            }}
+          >
+            <Text style={styles.text}>{`${value ?? ""}`}</Text>
+          </View>
+        </Pressable>
+      );
+    });
+
+  const lower = Object.entries(props.column.columnData)
+    .slice(8, 16)
+    .map(([field, value]) => {
+      return (
+        <Pressable
+          key={field}
+          onPress={() => {
+            openFieldEntryModal(field as Row);
+          }}
+        >
+          <View
+            style={{
+              ...styles.cell,
+              ...(props.column.playableFields.includes(field) &&
+                styles.playable),
+              ...(props.column.playableFields.includes(field) &&
+                styles.highlighted),
+              ...(["6", "min", "yamb"].includes(field) && styles.underlined),
+            }}
+          >
+            <Text style={styles.text}>{`${value ?? ""}`}</Text>
+          </View>
+        </Pressable>
+      );
+    });
   return (
     <View style={styles.column}>
       <View style={styles.cell}>
         <ColumnLabel columnIcon={props.columnIcon}></ColumnLabel>
       </View>
-      {columnFields}
+
+      {digits}
+
+      <View style={{ ...styles.cell, ...styles.sum }}>
+        <Text>{props.column.digitsSum}</Text>
+      </View>
+
+      {minMax}
+
+      <View style={{ ...styles.cell, ...styles.sum }}>
+        <Text>{props.column.minMax}</Text>
+      </View>
+
+      {lower}
+
+      <View style={{ ...styles.cell, ...styles.sum }}>
+        <Text>{props.column.lower}</Text>
+      </View>
     </View>
   );
 });
@@ -59,6 +131,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
+    minWidth: 40,
+    maxWidth: 40,
   },
   text: {
     color: "#000",
@@ -71,8 +145,8 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
     borderStyle: "solid",
     maxWidth: 40,
     maxHeight: 40,
@@ -83,4 +157,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "#bbedbf",
   },
   highlighted: {},
+  sum: { backgroundColor: "#ececec" },
+  underlined: { borderBottomWidth: 2 },
 });
