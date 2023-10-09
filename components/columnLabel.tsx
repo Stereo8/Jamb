@@ -22,7 +22,7 @@ export const ColumnLabel = (props: Props) => {
       source={ColumnIcons[props.columnIcon]}
     ></Image>
   ) : (
-    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+    <Text style={{ fontSize: 24, fontWeight: "bold" }}>
       {textBindings[props.columnIcon]}
     </Text>
   );

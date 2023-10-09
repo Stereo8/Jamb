@@ -83,7 +83,7 @@ function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => i + start);
 }
 
-const calculateNumbers = (field: Row) => {
+const calculateNumbers = (field: Row): number[] => {
   if (["1", "2", "3", "4", "5", "6"].includes(field)) {
     return range(1, 5).map((d) => d * Number(field));
   } else {
