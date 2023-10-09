@@ -1,7 +1,7 @@
 import { JambSheet } from "../stores/jambSheet";
 import { observer, inject } from "mobx-react";
 import { Key, useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Modal } from "react-native";
 import { Column } from "./column";
 import { RowLabels } from "./rowLabels";
 import { NumberPicker } from "./numberPicker";
@@ -29,12 +29,11 @@ export const JambSheetDisplay = observer((props: Props) => {
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "up")}
         uiState={props.uiState}
       ></Column>
-
-      <NumberPicker
-        field={props.uiState.selectedRow}
-        uiState={props.uiState}
-      ></NumberPicker>
-      <Text style={styles.text}>{props.uiState.numberSelectedInPicker}</Text>
+      <Modal transparent visible={props.uiState.numberPickerOpen}>
+        <View style={styles.modal}>
+          <NumberPicker uiState={props.uiState}></NumberPicker>
+        </View>
+      </Modal>
     </View>
   );
 });
@@ -47,4 +46,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: { fontSize: 36 },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

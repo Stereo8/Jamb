@@ -6,10 +6,10 @@ import { JambSheet } from "../stores/jambSheet";
 import { action } from "mobx";
 import { Row } from "../types/columnData";
 
-type Props = { field: Row; uiState: UIState };
+type Props = { uiState: UIState };
 
 export const NumberPicker = observer((props: Props) => {
-  const numbersToDisplay = calculateNumbers(props.field);
+  const numbersToDisplay = calculateNumbers(props.uiState.selectedRow);
 
   return (
     <View style={styles.carousel}>
@@ -35,7 +35,12 @@ export const NumberPicker = observer((props: Props) => {
           </View>
         )}
       ></Carousel>
-      <Text onPress={action(() => props.uiState.setField())}>Set</Text>
+      <Text
+        style={styles.setButton}
+        onPress={action(() => props.uiState.setField())}
+      >
+        Set
+      </Text>
     </View>
   );
 });
@@ -95,8 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
     margin: 10,
+    width: "70%",
+    maxHeight: 400,
+    backgroundColor: "#fff",
   },
   arrows: {
     fontSize: 48,
@@ -110,5 +117,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  setButton: {
+    fontSize: 24,
+    marginTop: 12,
+    marginBottom: 4,
+    borderWidth: 1,
+    paddingLeft: 3,
+    paddingRight: 3,
   },
 });

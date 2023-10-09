@@ -9,10 +9,12 @@ export class UIState {
   jambSheet: JambSheet;
   selectedRow: Row;
   selectedColumn: ColumnType;
+  numberPickerOpen: boolean;
 
   setSelectedField(row: Row, column: ColumnType) {
     this.selectedRow = row;
     this.selectedColumn = column;
+    this.numberPickerOpen = true;
   }
 
   setField() {
@@ -20,6 +22,7 @@ export class UIState {
       this.selectedRow,
       this.numberSelectedInPicker
     );
+    this.numberPickerOpen = false;
   }
 
   setNumberSelectedInPicker(i: number) {
@@ -31,5 +34,6 @@ export class UIState {
     makeAutoObservable(this);
     this.numberSelectedInPicker = 0;
     this.jambSheet = jambSheet;
+    this.numberPickerOpen = false;
   }
 }

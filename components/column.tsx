@@ -12,7 +12,9 @@ type Props = {
 
 export const Column = observer((props: Props) => {
   const openFieldEntryModal = (field: Row) => {
-    props.fieldSelected(field);
+    if (props.column.playableFields.includes(field)) {
+      props.fieldSelected(field);
+    }
   };
 
   const columnFields = Object.entries(props.column.columnData).map(
