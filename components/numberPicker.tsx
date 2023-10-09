@@ -34,6 +34,8 @@ export const NumberPicker = observer((props: Props) => {
             <Text style={styles.text}>{info.item}</Text>
           </View>
         )}
+        overscrollEnabled={true}
+        loop={false}
       ></Carousel>
       <Text
         style={styles.setButton}

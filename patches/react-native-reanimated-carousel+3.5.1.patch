@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-reanimated-carousel/src/ScrollViewGesture.tsx b/node_modules/react-native-reanimated-carousel/src/ScrollViewGesture.tsx
+index ae2a123..8a7d641 100644
+--- a/node_modules/react-native-reanimated-carousel/src/ScrollViewGesture.tsx
++++ b/node_modules/react-native-reanimated-carousel/src/ScrollViewGesture.tsx
+@@ -293,7 +293,7 @@ const IScrollViewGesture: React.FC<PropsWithChildren<Props>> = (props) => {
+           translationY = !isHorizontal.value ? dampedTranslation * Math.sign(translationY) : translationY;
+         }
+ 
+-        const panTranslation = isHorizontal.value ? translationX : translationY;
++        const panTranslation = isHorizontal.value ? translationX : translationY * 2;
+         if (!infinite) {
+           if ((translation.value > 0 || translation.value < -ctx.max)) {
+             const boundary = translation.value > 0 ? 0 : -ctx.max;
