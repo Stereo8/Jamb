@@ -5,6 +5,7 @@ import { UIState } from "../stores/uiState";
 import { JambSheet } from "../stores/jambSheet";
 import { action } from "mobx";
 import { Row } from "../types/columnData";
+import * as Haptics from "expo-haptics";
 
 type Props = { uiState: UIState };
 
@@ -16,14 +17,14 @@ export const NumberPicker = observer((props: Props) => {
       <Carousel
         data={numbersToDisplay}
         vertical
-        height={150}
-        width={75}
+        height={250}
+        width={1000}
         mode={"parallax"}
         snapEnabled={true}
         modeConfig={{
-          parallaxAdjacentItemScale: 0.45,
-          parallaxScrollingScale: 1.0,
-          parallaxScrollingOffset: 95,
+          parallaxAdjacentItemScale: 0.35,
+          parallaxScrollingScale: 1.3,
+          parallaxScrollingOffset: 160,
         }}
         scrollAnimationDuration={2}
         onSnapToItem={(index) => {
@@ -107,11 +108,8 @@ const styles = StyleSheet.create({
     maxHeight: 400,
     backgroundColor: "#fff",
   },
-  arrows: {
-    fontSize: 48,
-  },
   text: {
-    fontSize: 64,
+    fontSize: 96,
     textAlign: "center",
     textAlignVertical: "center",
   },
