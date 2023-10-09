@@ -1,20 +1,22 @@
 import { observer } from "mobx-react";
 import { View, Text, StyleSheet } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
+import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import { UIState } from "../stores/uiState";
 import { JambSheet } from "../stores/jambSheet";
 import { action } from "mobx";
 import { Row } from "../types/columnData";
 import * as Haptics from "expo-haptics";
+import React from "react";
 
 type Props = { uiState: UIState };
 
 export const NumberPicker = observer((props: Props) => {
   const numbersToDisplay = calculateNumbers(props.uiState.selectedRow);
-
+  const carousel = React.createRef<ICarouselInstance>();
   return (
     <View style={styles.carousel}>
       <Carousel
+        ref={carousel}
         data={numbersToDisplay}
         vertical
         height={250}
@@ -30,6 +32,9 @@ export const NumberPicker = observer((props: Props) => {
         onSnapToItem={(index) => {
           props.uiState.setNumberSelectedInPicker(numbersToDisplay[index]);
         }}
+        onProgressChange={() =>
+          triggerHaptics(carousel.current!.getCurrentIndex())
+        }
         renderItem={(info) => (
           <View style={styles.cell}>
             <Text style={styles.text}>{info.item}</Text>
@@ -40,13 +45,25 @@ export const NumberPicker = observer((props: Props) => {
       ></Carousel>
       <Text
         style={styles.setButton}
-        onPress={action(() => props.uiState.setField())}
+        onPress={action(async () => {
+          props.uiState.setField();
+          await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        })}
       >
         Set
       </Text>
     </View>
   );
 });
+
+let lastNumber = 0;
+
+const triggerHaptics = async (index: number) => {
+  if (lastNumber !== index) {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    lastNumber = index;
+  }
+};
 
 function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => i + start);
@@ -107,6 +124,7 @@ const styles = StyleSheet.create({
     width: "70%",
     maxHeight: 400,
     backgroundColor: "#fff",
+    borderRadius: 10,
   },
   text: {
     fontSize: 96,
@@ -123,7 +141,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 4,
     borderWidth: 1,
-    paddingLeft: 3,
-    paddingRight: 3,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
 });

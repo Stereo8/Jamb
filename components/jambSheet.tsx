@@ -44,11 +44,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   text: { fontSize: 36 },
   modal: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
   },
 });

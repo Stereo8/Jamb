@@ -26,7 +26,6 @@ export class UIState {
   }
 
   setNumberSelectedInPicker(i: number) {
-    console.log(i);
     this.numberSelectedInPicker = i;
   }
 
