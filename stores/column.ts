@@ -1,38 +1,14 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { COLUMN_ORDER } from "../utils/constants";
+import {
+  COLUMN_ORDER,
+  UP_ORDER,
+  DOWN_ORDER,
+  OUTSIDE_DOWN_ORDER,
+  OUTSIDE_UP_ORDER,
+  INSIDE_DOWN_ORDER,
+  INSIDE_UP_ORDER,
+} from "../utils/constants";
 import { ColumnData, Row } from "../types/columnData";
-
-const DOWN_ORDER: string[] = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "max",
-  "min",
-  "kenta",
-  "triling",
-  "ful",
-  "poker",
-  "yamb",
-];
-
-const UP_ORDER: string[] = [
-  "yamb",
-  "poker",
-  "ful",
-  "triling",
-  "kenta",
-  "min",
-  "max",
-  "6",
-  "5",
-  "4",
-  "3",
-  "2",
-  "1",
-];
 
 export interface IColumn {
   get playableFields(): string[];
