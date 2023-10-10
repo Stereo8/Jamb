@@ -46,7 +46,7 @@ export interface IColumn {
 export class DownColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor() {
+  constructor(columnData: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -55,13 +55,16 @@ export class DownColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    if (columnData === undefined) {
+      // @ts-ignore
+      this.columnData = {};
 
-    // @ts-ignore
-    this.columnData = {};
-
-    COLUMN_ORDER.forEach((field) => {
-      this.columnData[field] = null;
-    });
+      COLUMN_ORDER.forEach((field) => {
+        this.columnData[field] = null;
+      });
+    } else {
+      this.columnData = columnData;
+    }
   }
 
   get playableFields(): string[] {
@@ -105,7 +108,7 @@ export class DownColumn implements IColumn {
 export class UpColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor() {
+  constructor(columnData: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -114,12 +117,15 @@ export class UpColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
-
-    // @ts-ignore
-    this.columnData = {};
-    COLUMN_ORDER.forEach((field) => {
-      this.columnData[field] = null;
-    });
+    if (columnData === undefined) {
+      // @ts-ignore
+      this.columnData = {};
+      COLUMN_ORDER.forEach((field) => {
+        this.columnData[field] = null;
+      });
+    } else {
+      this.columnData = columnData;
+    }
   }
 
   get playableFields(): string[] {
@@ -163,7 +169,7 @@ export class UpColumn implements IColumn {
 export class FreeColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor() {
+  constructor(columnData: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -172,12 +178,15 @@ export class FreeColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
-
-    // @ts-ignore
-    this.columnData = {};
-    COLUMN_ORDER.forEach((field) => {
-      this.columnData[field] = null;
-    });
+    if (columnData === undefined) {
+      // @ts-ignore
+      this.columnData = {};
+      COLUMN_ORDER.forEach((field) => {
+        this.columnData[field] = null;
+      });
+    } else {
+      this.columnData = columnData;
+    }
   }
 
   get playableFields(): string[] {
