@@ -24,48 +24,56 @@ export const JambSheetDisplay = observer((props: Props) => {
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "down")}
         uiState={props.uiState}
         columnIcon="down"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.free}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "free")}
         uiState={props.uiState}
         columnIcon="free"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.up}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "up")}
         uiState={props.uiState}
         columnIcon="up"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.announce}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "announce")}
         uiState={props.uiState}
         columnIcon="announce"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.hand}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "hand")}
         uiState={props.uiState}
         columnIcon="hand"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.call}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "call")}
         uiState={props.uiState}
         columnIcon="call"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.inside}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "inside")}
         uiState={props.uiState}
         columnIcon="inside"
+        highlightPlayable
       ></Column>
       <Column
         column={props.jambSheet.columns.outside}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "outside")}
         uiState={props.uiState}
         columnIcon="outside"
+        highlightPlayable
       ></Column>
       {false && (
         <Column

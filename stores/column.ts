@@ -199,3 +199,137 @@ export class FreeColumn implements IColumn {
     return (this.columnData.max - this.columnData.min) * this.columnData[1];
   }
 }
+
+export class InsideColumn implements IColumn {
+  columnData: ColumnData;
+
+  constructor(columnData: ColumnData | undefined) {
+    makeObservable(this, {
+      columnData: observable,
+      playableFields: computed,
+      setField: action,
+      digitsSum: computed,
+      minMax: computed,
+      lower: computed,
+    });
+    if (columnData === undefined) {
+      // @ts-ignore
+      this.columnData = {};
+      COLUMN_ORDER.forEach((field) => {
+        this.columnData[field] = null;
+      });
+    } else {
+      this.columnData = columnData;
+    }
+  }
+
+  get playableFields(): string[] {
+    const pf: string[] = [];
+    const findFirstEmptyField = (field: string): boolean | undefined => {
+      if (this.columnData[field] === null) {
+        pf.push(field);
+        return false;
+      } else return true;
+    };
+    INSIDE_DOWN_ORDER.every(findFirstEmptyField);
+    INSIDE_UP_ORDER.every(findFirstEmptyField);
+    return pf;
+  }
+  setField(field: Row, value: number) {
+    // TODO: Do row checks
+    this.columnData[field] = value;
+  }
+
+  get digitsSum() {
+    return ["1", "2", "3", "4", "5", "6"].reduce(
+      (acc, d) => acc + this.columnData[d],
+      0
+    );
+  }
+  get lower(): number {
+    return (
+      (this.columnData.kenta ?? 0) +
+      (this.columnData.triling ?? 0) +
+      (this.columnData.ful ?? 0) +
+      (this.columnData.poker ?? 0) +
+      (this.columnData.yamb ?? 0)
+    );
+  }
+  get minMax(): number {
+    if (
+      this.columnData[1] === null ||
+      this.columnData.min === null ||
+      this.columnData.max === null
+    ) {
+      return 0;
+    }
+    return (this.columnData.max - this.columnData.min) * this.columnData[1];
+  }
+}
+
+export class OutsideColumn implements IColumn {
+  columnData: ColumnData;
+
+  constructor(columnData: ColumnData | undefined) {
+    makeObservable(this, {
+      columnData: observable,
+      playableFields: computed,
+      setField: action,
+      digitsSum: computed,
+      minMax: computed,
+      lower: computed,
+    });
+    if (columnData === undefined) {
+      // @ts-ignore
+      this.columnData = {};
+      COLUMN_ORDER.forEach((field) => {
+        this.columnData[field] = null;
+      });
+    } else {
+      this.columnData = columnData;
+    }
+  }
+
+  get playableFields(): string[] {
+    const pf: string[] = [];
+    const findFirstEmptyField = (field: string): boolean | undefined => {
+      if (this.columnData[field] === null) {
+        pf.push(field);
+        return false;
+      } else return true;
+    };
+    OUTSIDE_DOWN_ORDER.every(findFirstEmptyField);
+    OUTSIDE_UP_ORDER.every(findFirstEmptyField);
+    return pf;
+  }
+  setField(field: Row, value: number) {
+    // TODO: Do row checks
+    this.columnData[field] = value;
+  }
+
+  get digitsSum() {
+    return ["1", "2", "3", "4", "5", "6"].reduce(
+      (acc, d) => acc + this.columnData[d],
+      0
+    );
+  }
+  get lower(): number {
+    return (
+      (this.columnData.kenta ?? 0) +
+      (this.columnData.triling ?? 0) +
+      (this.columnData.ful ?? 0) +
+      (this.columnData.poker ?? 0) +
+      (this.columnData.yamb ?? 0)
+    );
+  }
+  get minMax(): number {
+    if (
+      this.columnData[1] === null ||
+      this.columnData.min === null ||
+      this.columnData.max === null
+    ) {
+      return 0;
+    }
+    return (this.columnData.max - this.columnData.min) * this.columnData[1];
+  }
+}

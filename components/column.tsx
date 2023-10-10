@@ -11,6 +11,7 @@ type Props = {
   fieldSelected: (field: Row) => void;
   uiState: UIState;
   columnIcon: ColumnIcon;
+  highlightPlayable?: boolean;
 };
 
 export const Column = observer((props: Props) => {
@@ -86,6 +87,7 @@ export const Column = observer((props: Props) => {
             style={{
               ...styles.cell,
               ...(props.column.playableFields.includes(field) &&
+                props.highlightPlayable &&
                 styles.playable),
               ...(props.column.playableFields.includes(field) &&
                 styles.highlighted),
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
   },
   playable: {
-    // backgroundColor: "#bbedbf",
+    backgroundColor: "#bbedbf",
   },
   highlighted: {},
   sum: { backgroundColor: "#ececec" },
