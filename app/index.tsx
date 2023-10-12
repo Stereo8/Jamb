@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Link, useFocusEffect } from "expo-router";
 import { getLatestAutosave, openJambDatabase } from "../utils/database";
+import TimeAgo from "javascript-time-ago";
+import sr from "javascript-time-ago/locale/sr-Latn";
+
+TimeAgo.addDefaultLocale(sr);
 
 export default function MainMenu() {
   const [latestAutosaveId, setLatestAutosaveId] = useState(0);
-  useEffect(() => {
+  const [timeDiffDisplay, setTimeDiffDisplay] = useState("");
+  useFocusEffect(() => {
     getLatestAutosave().then((autosave) => {
       setLatestAutosaveId(autosave.autosave_id);
+
+      const timeAgo = new TimeAgo("sr");
+      setTimeDiffDisplay(
+        timeAgo.format(autosave.save_timestamp * 1000, { now: Date.now() })
+      );
     });
-  }, []);
+  });
 
   return (
     <View style={styles.container}>
@@ -21,7 +31,7 @@ export default function MainMenu() {
         </Link>
         {latestAutosaveId ? (
           <Link href={`/singlePlayer?autoSaveId=${latestAutosaveId}`} asChild>
-            <Button title="Nastavi" />
+            <Button title={`Nastavi (${timeDiffDisplay})`} />
           </Link>
         ) : (
           <></>
