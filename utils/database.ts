@@ -1,10 +1,4 @@
-import {
-  SQLTransaction,
-  openDatabase,
-  SQLTransactionErrorCallback,
-  SQLError,
-  SQLiteDatabase,
-} from "expo-sqlite";
+import { openDatabase, SQLiteDatabase } from "expo-sqlite";
 import { JambSheet } from "../stores/jambSheet";
 
 export type Autosave = {
@@ -12,6 +6,8 @@ export type Autosave = {
   save_json: string;
   save_timestamp: number;
 };
+
+class NoAutoSavesError extends RangeError {}
 
 export async function openJambDatabase(): Promise<SQLiteDatabase> {
   const db = openDatabase("db.db");
@@ -35,6 +31,7 @@ export async function getLatestAutosave(): Promise<Autosave> {
     );
     nesto = result;
   });
+  if (nesto?.rows.length === 0) throw NoAutoSavesError;
   return nesto.rows[0];
 }
 

@@ -11,17 +11,23 @@ import {
 } from "../utils/database";
 import { useLocalSearchParams } from "expo-router/src/hooks";
 import { observer } from "mobx-react";
+import { router } from "expo-router";
 
 const SinglePlayerInGame = observer(() => {
-  const [jambSheet, setJambSheet] = useState(new JambSheet());
+  const [jambSheet] = useState(new JambSheet());
   const [uiState] = useState(() => new UIState(jambSheet));
 
   const query = useLocalSearchParams();
   useEffect(() => {
     if (query?.autoSaveId) {
-      getLatestAutosave().then((autosave: Autosave) => {
-        jambSheet.setColumns(JambSheet.fromJson(autosave.save_json).columns);
-      });
+      getLatestAutosave()
+        .then((autosave: Autosave) => {
+          jambSheet.setColumns(JambSheet.fromJson(autosave.save_json).columns);
+        })
+        .catch((err) => {
+          console.error("Autosave passed to SinglePlayerInGame not found.");
+          router.back();
+        });
     }
     return () => {
       autoSaveJambSheet(jambSheet);
