@@ -22,7 +22,7 @@ export interface IColumn {
 export class DownColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor(columnData: ColumnData | undefined) {
+  constructor(columnData?: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -31,15 +31,16 @@ export class DownColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    // @ts-ignore
+    this.columnData = {};
     if (columnData === undefined) {
-      // @ts-ignore
-      this.columnData = {};
-
       COLUMN_ORDER.forEach((field) => {
         this.columnData[field] = null;
       });
     } else {
-      this.columnData = columnData;
+      Object.entries(columnData).forEach(([key, value]) => {
+        this.columnData[key] = value;
+      });
     }
   }
 
@@ -84,7 +85,7 @@ export class DownColumn implements IColumn {
 export class UpColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor(columnData: ColumnData | undefined) {
+  constructor(columnData?: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -93,14 +94,16 @@ export class UpColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    // @ts-ignore
+    this.columnData = {};
     if (columnData === undefined) {
-      // @ts-ignore
-      this.columnData = {};
       COLUMN_ORDER.forEach((field) => {
         this.columnData[field] = null;
       });
     } else {
-      this.columnData = columnData;
+      Object.entries(columnData).forEach(([key, value]) => {
+        this.columnData[key] = value;
+      });
     }
   }
 
@@ -145,7 +148,7 @@ export class UpColumn implements IColumn {
 export class FreeColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor(columnData: ColumnData | undefined) {
+  constructor(columnData?: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -154,14 +157,16 @@ export class FreeColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    // @ts-ignore
+    this.columnData = {};
     if (columnData === undefined) {
-      // @ts-ignore
-      this.columnData = {};
       COLUMN_ORDER.forEach((field) => {
         this.columnData[field] = null;
       });
     } else {
-      this.columnData = columnData;
+      Object.entries(columnData).forEach(([key, value]) => {
+        this.columnData[key] = value;
+      });
     }
   }
 
@@ -203,7 +208,7 @@ export class FreeColumn implements IColumn {
 export class InsideColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor(columnData: ColumnData | undefined) {
+  constructor(columnData?: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -212,14 +217,16 @@ export class InsideColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    // @ts-ignore
+    this.columnData = {};
     if (columnData === undefined) {
-      // @ts-ignore
-      this.columnData = {};
       COLUMN_ORDER.forEach((field) => {
         this.columnData[field] = null;
       });
     } else {
-      this.columnData = columnData;
+      Object.entries(columnData).forEach(([key, value]) => {
+        this.columnData[key] = value;
+      });
     }
   }
 
@@ -270,7 +277,7 @@ export class InsideColumn implements IColumn {
 export class OutsideColumn implements IColumn {
   columnData: ColumnData;
 
-  constructor(columnData: ColumnData | undefined) {
+  constructor(columnData?: ColumnData | undefined) {
     makeObservable(this, {
       columnData: observable,
       playableFields: computed,
@@ -279,14 +286,16 @@ export class OutsideColumn implements IColumn {
       minMax: computed,
       lower: computed,
     });
+    // @ts-ignore
+    this.columnData = {};
     if (columnData === undefined) {
-      // @ts-ignore
-      this.columnData = {};
       COLUMN_ORDER.forEach((field) => {
         this.columnData[field] = null;
       });
     } else {
-      this.columnData = columnData;
+      Object.entries(columnData).forEach(([key, value]) => {
+        this.columnData[key] = value;
+      });
     }
   }
 

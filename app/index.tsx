@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
+import { getLatestAutosave, openJambDatabase } from "../utils/database";
 
 export default function MainMenu() {
+  const [latestAutosaveId, setLatestAutosaveId] = useState(0);
+  useEffect(() => {
+    getLatestAutosave().then((autosave) => {
+      setLatestAutosaveId(autosave.autosave_id);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Jamb</Text>
@@ -11,7 +19,14 @@ export default function MainMenu() {
         <Link href="/singlePlayer" asChild>
           <Button title="Nova igra" />
         </Link>
-        <Button title="Nastavi" />
+        {latestAutosaveId ? (
+          <Link href={`/singlePlayer?autoSaveId=${latestAutosaveId}`} asChild>
+            <Button title="Nastavi" />
+          </Link>
+        ) : (
+          <></>
+        )}
+
         <Button title="Istorija" />
         <Button title="Pomoć" />
       </View>

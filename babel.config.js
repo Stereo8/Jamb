@@ -4,12 +4,11 @@ module.exports = function (api) {
     presets: ["babel-preset-expo"],
     plugins: [
       "expo-router/babel",
-      "@babel/plugin-proposal-class-properties",
+      ["@babel/plugin-proposal-class-properties"],
       "react-native-reanimated/plugin",
     ],
     assumptions: {
       setPublicClassFields: false,
-      privateFieldsAsSymbols: true,
     },
   };
 };

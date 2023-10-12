@@ -6,22 +6,34 @@ import {
   OutsideColumn,
   UpColumn,
 } from "./column";
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable, makeObservable, observable } from "mobx";
 export class JambSheet {
   columns: Columns;
 
-  constructor() {
-    makeAutoObservable(this);
+  constructor(columns?: Columns | undefined) {
+    makeObservable(this, { columns: observable, setColumns: action });
     this.columns = {
-      up: new UpColumn(undefined),
-      down: new DownColumn(undefined),
-      free: new FreeColumn(undefined),
-      announce: new FreeColumn(undefined),
-      hand: new FreeColumn(undefined),
-      call: new FreeColumn(undefined),
-      inside: new InsideColumn(undefined),
-      outside: new OutsideColumn(undefined),
-      final: new FreeColumn(undefined),
+      up: new UpColumn(columns?.up.columnData),
+      down: new DownColumn(columns?.down.columnData),
+      free: new FreeColumn(columns?.free.columnData),
+      announce: new FreeColumn(columns?.announce.columnData),
+      hand: new FreeColumn(columns?.hand.columnData),
+      call: new FreeColumn(columns?.call.columnData),
+      inside: new InsideColumn(columns?.inside.columnData),
+      outside: new OutsideColumn(columns?.outside.columnData),
+      final: new FreeColumn(columns?.final.columnData),
     };
+  }
+  toJSON(): string {
+    return JSON.stringify(this.columns);
+  }
+
+  static fromJson(json: string): JambSheet {
+    const columns = JSON.parse(json);
+    return new JambSheet(columns);
+  }
+
+  setColumns(columns: Columns) {
+    this.columns = columns;
   }
 }

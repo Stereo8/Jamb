@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { UIState } from "../stores/uiState";
 import { ColumnIcon } from "../utils/images";
 import { ColumnLabel } from "./columnLabel";
+import uuid from "react-uuid";
 
 type Props = {
   column: IColumn;
@@ -26,7 +27,7 @@ export const Column = observer((props: Props) => {
     .map(([field, value]) => {
       return (
         <Pressable
-          key={field}
+          key={uuid()}
           onPress={() => {
             openFieldEntryModal(field as Row);
           }}
@@ -52,7 +53,7 @@ export const Column = observer((props: Props) => {
     .map(([field, value]) => {
       return (
         <Pressable
-          key={field}
+          key={uuid()}
           onPress={() => {
             openFieldEntryModal(field as Row);
           }}
@@ -78,7 +79,7 @@ export const Column = observer((props: Props) => {
     .map(([field, value]) => {
       return (
         <Pressable
-          key={field}
+          key={uuid()}
           onPress={() => {
             openFieldEntryModal(field as Row);
           }}
