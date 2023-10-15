@@ -26,7 +26,7 @@ export const JambSheetDisplay = observer((props: Props) => {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: theme.background,
-      maxHeight: 17 * 40 + 5,
+      maxHeight: (props.uiState.showSums ? 17 : 14) * 40 + 5,
     },
     text: { fontSize: 36, color: theme.text },
     modal: {
@@ -39,7 +39,7 @@ export const JambSheetDisplay = observer((props: Props) => {
 
   return (
     <View style={styles.container}>
-      <RowLabels></RowLabels>
+      <RowLabels uiState={props.uiState}></RowLabels>
       <Column
         column={props.jambSheet.columns.down}
         fieldSelected={(field: Row) => setFieldBeingEdited(field, "down")}

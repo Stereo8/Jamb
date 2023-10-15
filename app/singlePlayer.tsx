@@ -48,7 +48,7 @@ const SinglePlayerInGame = observer(() => {
       style={{
         flex: 1,
         backgroundColor: theme.background,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
@@ -56,6 +56,18 @@ const SinglePlayerInGame = observer(() => {
         jambSheet={jambSheet}
         uiState={uiState}
       ></JambSheetDisplay>
+      <View
+        style={{
+          borderColor: theme.text,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+          borderWidth: 1,
+        }}
+      >
+        <Button title="Hello"></Button>
+        <Button title="hi"></Button>
+      </View>
     </View>
   );
 });

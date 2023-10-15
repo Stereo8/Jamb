@@ -10,6 +10,7 @@ export class UIState {
   selectedRow: Row;
   selectedColumn: ColumnType;
   numberPickerOpen: boolean;
+  showSums: boolean;
 
   setSelectedField(row: Row, column: ColumnType) {
     this.selectedRow = row;
@@ -33,10 +34,15 @@ export class UIState {
     this.numberSelectedInPicker = i;
   }
 
+  setShowSums(b: boolean) {
+    this.showSums = b;
+  }
+
   constructor(jambSheet: JambSheet) {
     makeAutoObservable(this);
     this.numberSelectedInPicker = 0;
     this.jambSheet = jambSheet;
     this.numberPickerOpen = false;
+    this.showSums = true;
   }
 }

@@ -18,5 +18,5 @@ React Native implementation of the game Jamb. Supports iOS and Android.
 - [ ] Saving games to SQLite database
 - [ ] More animations
 - [ ] High scores
-- [ ] Night mode
+- [x] Night mode
 - [ ] dice display in number picker

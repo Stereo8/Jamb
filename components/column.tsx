@@ -152,21 +152,27 @@ export const Column = observer((props: Props) => {
 
       {digits}
 
-      <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text style={styles.text}>{props.column.digitsSum}</Text>
-      </View>
+      {props.uiState.showSums && (
+        <View style={{ ...styles.cell, ...styles.sum }}>
+          <Text style={styles.text}>{props.column.digitsSum}</Text>
+        </View>
+      )}
 
       {minMax}
 
-      <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text style={styles.text}>{props.column.minMax}</Text>
-      </View>
+      {props.uiState.showSums && (
+        <View style={{ ...styles.cell, ...styles.sum }}>
+          <Text style={styles.text}>{props.column.minMax}</Text>
+        </View>
+      )}
 
       {lower}
 
-      <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text style={styles.text}>{props.column.lower}</Text>
-      </View>
+      {props.uiState.showSums && (
+        <View style={{ ...styles.cell, ...styles.sum }}>
+          <Text style={styles.text}>{props.column.lower}</Text>
+        </View>
+      )}
     </View>
   );
 });

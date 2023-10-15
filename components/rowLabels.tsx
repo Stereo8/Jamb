@@ -1,6 +1,14 @@
-import { Text, View, StyleSheet, useColorScheme } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  useColorScheme,
+  Pressable,
+} from "react-native";
 import uuid from "react-uuid";
 import { DarkScheme, LightScheme } from "../utils/colors";
+import { UIState } from "../stores/uiState";
+import { observer } from "mobx-react";
 
 const labels = [
   "1",
@@ -21,7 +29,9 @@ const labels = [
   "Σ",
 ];
 
-export const RowLabels = () => {
+type Props = { uiState: UIState };
+
+export const RowLabels = observer((props: Props) => {
   const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
   const styles = StyleSheet.create({
     column: {
@@ -55,14 +65,29 @@ export const RowLabels = () => {
 
   return (
     <View style={styles.column}>
-      <View style={styles.cell}>
-        <Text style={styles.text}></Text>
-      </View>
-      {labels.map((label) => (
-        <View key={uuid()} style={styles.cell}>
-          <Text style={styles.text}>{label}</Text>
+      <Pressable
+        onPress={() => {
+          props.uiState.setShowSums(!props.uiState.showSums);
+        }}
+      >
+        <View style={styles.cell}>
+          <Text style={styles.text}></Text>
         </View>
-      ))}
+      </Pressable>
+
+      {labels
+        .filter((label) => {
+          if (props.uiState.showSums) {
+            return true;
+          } else {
+            return label !== "Σ";
+          }
+        })
+        .map((label) => (
+          <View key={uuid()} style={styles.cell}>
+            <Text style={styles.text}>{label}</Text>
+          </View>
+        ))}
     </View>
   );
-};
+});

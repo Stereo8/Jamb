@@ -19,7 +19,6 @@ export const ColumnLabel = (props: Props) => {
   const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
   const images =
     useColorScheme() === "dark" ? DarkColumnIcons : LightColumnIcons;
-  console.log(images);
   return icons.includes(props.columnIcon) ? (
     <Image
       style={{ width: "100%", height: "100%" }}
