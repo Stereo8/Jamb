@@ -40,17 +40,18 @@ const SinglePlayerInGame = observer(() => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <JambSheetDisplay
         jambSheet={jambSheet}
         uiState={uiState}
       ></JambSheetDisplay>
-      <Button
-        onPress={() => {
-          breakpoint();
-        }}
-        title="Breakpoint"
-      ></Button>
     </View>
   );
 });

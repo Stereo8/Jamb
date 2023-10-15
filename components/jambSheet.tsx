@@ -83,11 +83,6 @@ export const JambSheetDisplay = observer((props: Props) => {
           columnIcon="final"
         ></Column>
       )}
-      <Modal transparent visible={props.uiState.numberPickerOpen}>
-        <View style={styles.modal}>
-          <NumberPicker uiState={props.uiState}></NumberPicker>
-        </View>
-      </Modal>
     </View>
   );
 });
@@ -96,9 +91,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#fff",
+    maxHeight: 17 * 40 + 5,
   },
   text: { fontSize: 36 },
   modal: {
