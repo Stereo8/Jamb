@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import { UIState } from "../stores/uiState";
 import { JambSheet } from "../stores/jambSheet";
@@ -7,6 +7,7 @@ import { action } from "mobx";
 import { Row } from "../types/columnData";
 import * as Haptics from "expo-haptics";
 import React, { useEffect } from "react";
+import { DarkScheme, LightScheme } from "../utils/colors";
 
 type Props = { uiState: UIState };
 
@@ -20,6 +21,54 @@ export const NumberPicker = observer((props: Props) => {
       numbersToDisplay[carousel.current!.getCurrentIndex()]
     );
   }, [props.uiState.numberPickerOpen]);
+
+  const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
+
+  const styles = StyleSheet.create({
+    carousel: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      margin: 10,
+      width: "70%",
+      maxHeight: 400,
+      backgroundColor: theme.background,
+      borderRadius: 10,
+    },
+    text: {
+      fontSize: 96,
+      textAlign: "center",
+      textAlignVertical: "center",
+      color: theme.text,
+    },
+    cell: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    setButton: {
+      fontSize: 24,
+      marginTop: 12,
+      marginBottom: 4,
+      borderWidth: 1,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingVertical: 5,
+      borderRadius: 5,
+      borderColor: theme.text,
+      color: theme.text,
+      backgroundColor: theme.background,
+    },
+    close: {
+      position: "absolute",
+      right: 10,
+      top: 10,
+      fontSize: 24,
+      fontWeight: "bold",
+      padding: 5,
+      color: theme.text,
+    },
+  });
 
   return (
     <View style={styles.carousel}>
@@ -128,44 +177,3 @@ const calculateNumbers = (field: Row): number[] => {
     return numbers;
   }
 };
-
-const styles = StyleSheet.create({
-  carousel: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 10,
-    width: "70%",
-    maxHeight: 400,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-  },
-  text: {
-    fontSize: 96,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-  cell: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  setButton: {
-    fontSize: 24,
-    marginTop: 12,
-    marginBottom: 4,
-    borderWidth: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingVertical: 5,
-    borderRadius: 5,
-  },
-  close: {
-    position: "absolute",
-    right: 10,
-    top: 10,
-    fontSize: 24,
-    fontWeight: "bold",
-    padding: 5,
-  },
-});

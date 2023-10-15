@@ -1,9 +1,9 @@
-export const ColumnIcons = {
-  up: require("../assets/column-icons/up.png"),
-  down: require("../assets/column-icons/down.png"),
-  free: require("../assets/column-icons/free.png"),
-  inside: require("../assets/column-icons/inside.png"),
-  outside: require("../assets/column-icons/outside.png"),
+export const LightColumnIcons = {
+  up: require("../assets/column-icons/dark/up.png"),
+  down: require("../assets/column-icons/dark/down.png"),
+  free: require("../assets/column-icons/dark/free.png"),
+  inside: require("../assets/column-icons/dark/inside.png"),
+  outside: require("../assets/column-icons/dark/outside.png"),
   announce: "",
   hand: "",
   call: "",
@@ -11,4 +11,17 @@ export const ColumnIcons = {
   max: "",
 };
 
-export type ColumnIcon = keyof typeof ColumnIcons;
+export const DarkColumnIcons = {
+  up: require("../assets/column-icons/light/up.png"),
+  down: require("../assets/column-icons/light/down.png"),
+  free: require("../assets/column-icons/light/free.png"),
+  inside: require("../assets/column-icons/light/inside.png"),
+  outside: require("../assets/column-icons/light/outside.png"),
+  announce: "",
+  hand: "",
+  call: "",
+  final: "",
+  max: "",
+};
+
+export type ColumnIcon = keyof typeof LightColumnIcons;

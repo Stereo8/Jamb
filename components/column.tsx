@@ -1,11 +1,18 @@
 import { IColumn } from "../stores/column";
 import { Row } from "../types/columnData";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  useColorScheme,
+} from "react-native";
 import { observer } from "mobx-react";
 import { UIState } from "../stores/uiState";
 import { ColumnIcon } from "../utils/images";
 import { ColumnLabel } from "./columnLabel";
 import uuid from "react-uuid";
+import { LightScheme, DarkScheme } from "../utils/colors";
 
 type Props = {
   column: IColumn;
@@ -21,6 +28,42 @@ export const Column = observer((props: Props) => {
       props.fieldSelected(field);
     }
   };
+
+  const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
+  const styles = StyleSheet.create({
+    column: {
+      flex: 1,
+      flexDirection: "column",
+      alignItems: "center",
+      minWidth: 40,
+      maxWidth: 40,
+    },
+    text: {
+      color: theme.text,
+      fontSize: 18,
+    },
+    cell: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      borderColor: theme.tableLines,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderStyle: "solid",
+      maxWidth: 40,
+      maxHeight: 40,
+      minWidth: 40,
+      minHeight: 40,
+    },
+    playable: {
+      backgroundColor: theme.highlightedField,
+    },
+    highlighted: {},
+    sum: { backgroundColor: theme.sumField },
+    underlined: { borderBottomWidth: 2 },
+  });
 
   const digits = Object.entries(props.column.columnData)
     .slice(0, 6)
@@ -100,6 +143,7 @@ export const Column = observer((props: Props) => {
         </Pressable>
       );
     });
+
   return (
     <View style={styles.column}>
       <View style={styles.cell}>
@@ -109,55 +153,20 @@ export const Column = observer((props: Props) => {
       {digits}
 
       <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text>{props.column.digitsSum}</Text>
+        <Text style={styles.text}>{props.column.digitsSum}</Text>
       </View>
 
       {minMax}
 
       <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text>{props.column.minMax}</Text>
+        <Text style={styles.text}>{props.column.minMax}</Text>
       </View>
 
       {lower}
 
       <View style={{ ...styles.cell, ...styles.sum }}>
-        <Text>{props.column.lower}</Text>
+        <Text style={styles.text}>{props.column.lower}</Text>
       </View>
     </View>
   );
-});
-
-const styles = StyleSheet.create({
-  column: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    minWidth: 40,
-    maxWidth: 40,
-  },
-  text: {
-    color: "#000",
-    fontSize: 18,
-  },
-  cell: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#000",
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderStyle: "solid",
-    maxWidth: 40,
-    maxHeight: 40,
-    minWidth: 40,
-    minHeight: 40,
-  },
-  playable: {
-    backgroundColor: "#bbedbf",
-  },
-  highlighted: {},
-  sum: { backgroundColor: "#ececec" },
-  underlined: { borderBottomWidth: 2 },
 });

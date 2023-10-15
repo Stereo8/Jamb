@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import uuid from "react-uuid";
+import { DarkScheme, LightScheme } from "../utils/colors";
 
 const labels = [
   "1",
@@ -21,6 +22,37 @@ const labels = [
 ];
 
 export const RowLabels = () => {
+  const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
+  const styles = StyleSheet.create({
+    column: {
+      flex: 1,
+      flexDirection: "column",
+      alignItems: "center",
+      minWidth: 40,
+      maxWidth: 40,
+    },
+    text: {
+      color: theme.text,
+      fontSize: 14,
+    },
+    cell: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      borderColor: theme.tableLines,
+      backgroundColor: theme.background,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 2,
+      borderStyle: "solid",
+      maxWidth: 40,
+      maxHeight: 40,
+      minWidth: 40,
+      minHeight: 40,
+    },
+  });
+
   return (
     <View style={styles.column}>
       <View style={styles.cell}>
@@ -34,32 +66,3 @@ export const RowLabels = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  column: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    minWidth: 40,
-    maxWidth: 40,
-  },
-  text: {
-    color: "#000",
-    fontSize: 14,
-  },
-  cell: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#000",
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 2,
-    borderStyle: "solid",
-    maxWidth: 40,
-    maxHeight: 40,
-    minWidth: 40,
-    minHeight: 40,
-  },
-});

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { JambSheet } from "../stores/jambSheet";
 import { JambSheetDisplay } from "../components/jambSheet";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, useColorScheme } from "react-native";
 import { UIState } from "../stores/uiState";
 import { NumberPicker } from "../components/numberPicker";
 import {
@@ -12,12 +12,16 @@ import {
 import { useLocalSearchParams } from "expo-router/src/hooks";
 import { observer } from "mobx-react";
 import { router } from "expo-router";
+import { DarkScheme, LightScheme } from "../utils/colors";
 
 const SinglePlayerInGame = observer(() => {
   const [jambSheet] = useState(new JambSheet());
   const [uiState] = useState(() => new UIState(jambSheet));
 
   const query = useLocalSearchParams();
+
+  const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
+
   useEffect(() => {
     if (query?.autoSaveId) {
       getLatestAutosave()
@@ -43,7 +47,7 @@ const SinglePlayerInGame = observer(() => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: theme.background,
         justifyContent: "center",
         alignItems: "center",
       }}

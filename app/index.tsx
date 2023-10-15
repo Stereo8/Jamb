@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { Link, useFocusEffect } from "expo-router";
 import { getLatestAutosave } from "../utils/database";
 import TimeAgo from "javascript-time-ago";
 import sr from "javascript-time-ago/locale/sr-Latn";
+import { DarkScheme, LightScheme } from "../utils/colors";
 
 TimeAgo.addDefaultLocale(sr);
 
@@ -21,6 +22,30 @@ export default function MainMenu() {
         );
       })
       .catch((err) => console.warn("no autosave found"));
+  });
+
+  const theme = useColorScheme() === "dark" ? DarkScheme : LightScheme;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.background,
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    menu: {
+      flexDirection: "column",
+      flex: 1,
+    },
+    title: {
+      fontSize: 96,
+      marginTop: 96,
+      color: theme.text,
+    },
+    divider: {
+      flexGrow: 1,
+    },
   });
 
   return (
@@ -45,24 +70,3 @@ export default function MainMenu() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-  menu: {
-    flexDirection: "column",
-    flex: 1,
-  },
-  title: {
-    fontSize: 96,
-    marginTop: 96,
-  },
-  divider: {
-    flexGrow: 1,
-  },
-});
