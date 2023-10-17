@@ -24,4 +24,22 @@ export const DarkColumnIcons = {
   max: "",
 };
 
+export const DarkDiceIcons = [
+  require("../assets/dice/dark/1.png"),
+  require("../assets/dice/dark/2.png"),
+  require("../assets/dice/dark/3.png"),
+  require("../assets/dice/dark/4.png"),
+  require("../assets/dice/dark/5.png"),
+  require("../assets/dice/dark/6.png"),
+];
+
+export const LightDiceIcons = [
+  require("../assets/dice/light/1.png"),
+  require("../assets/dice/light/2.png"),
+  require("../assets/dice/light/3.png"),
+  require("../assets/dice/light/4.png"),
+  require("../assets/dice/light/5.png"),
+  require("../assets/dice/light/6.png"),
+];
+
 export type ColumnIcon = keyof typeof LightColumnIcons;

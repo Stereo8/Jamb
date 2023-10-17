@@ -19,6 +19,7 @@ export class UIState {
   }
 
   setField() {
+    // @ts-ignore
     this.jambSheet.columns[this.selectedColumn].setField(
       this.selectedRow,
       this.numberSelectedInPicker

@@ -64,8 +64,9 @@ export default function MainMenu() {
           <></>
         )}
 
-        <Button title="Istorija" />
-        <Button title="Pomoć" />
+        <Link href="/threeDTesting" asChild>
+          <Button title="3D Testing" />
+        </Link>
       </View>
     </View>
   );
