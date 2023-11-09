@@ -13,6 +13,7 @@ import { useLocalSearchParams } from "expo-router/src/hooks";
 import { observer } from "mobx-react";
 import { router } from "expo-router";
 import { DarkScheme, LightScheme } from "../utils/colors";
+import { DiceRoller } from "../components/diceRoller";
 
 const SinglePlayerInGame = observer(() => {
   const [jambSheet] = useState(new JambSheet());
@@ -62,11 +63,10 @@ const SinglePlayerInGame = observer(() => {
           flexDirection: "row",
           justifyContent: "space-between",
           width: "100%",
-          borderWidth: 1,
+          flex: 0.18,
         }}
       >
-        <Button title="Hello"></Button>
-        <Button title="hi"></Button>
+        <DiceRoller></DiceRoller>
       </View>
     </View>
   );

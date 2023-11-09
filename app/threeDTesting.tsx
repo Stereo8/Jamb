@@ -30,7 +30,7 @@ const diceRotations = {
   6: [2 * TURN, 0, 0],
 };
 
-const Die = forwardRef((props, ref) => {
+const Die = forwardRef((props: { position: number[] }, ref) => {
   const mesh = useRef();
   const [rotation, setRotation] = useState([0, 0, 0]);
 
